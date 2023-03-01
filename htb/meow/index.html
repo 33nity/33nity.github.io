@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es-US">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="style.css">
+<title>HTB Meow WriteUp</title>
+<link rel="icon" type="image/png" sizes="64x64" href="https://avatars.githubusercontent.com/u/124062596?v=4">
+<meta property="og:title" content="HTB Meow WriteUp" />
+<meta name="description" content="HTB Meow WriteUp" />
+<meta name="og:description" content="HTB Meow WriteUp" />
+<meta property="og:site_name" content="HTB Meow WriteUp" />
+<meta property="og:type" content="website" />
+</head>
+<body>
+    <aside>
+        <img 
+            src="https://avatars.githubusercontent.com/u/124062596?v=4"
+            id="box_img"
+            >
+        <h1>Meow</h1>
+        <p>Clasificación: Muy fácil.</p>
+        <hr>
+        </aside>
+    <div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">1</strong><img src="_img\arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Empezamos escaneando los puertos abiertos de la máquina, utilizando Nmap y la IP que nos indica HTB.
+        </p>
+
+    </div>
+
+    <section id ="cmd">
+    <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>nmap 10.129.53.139</h5></div>
+
+        <div><pre style="text-align: left; margin-left: 20px; color: bisque">
+Nmap scan report for 10.129.53.139
+
+PORT    STATE  SERVICE
+23/tcp  open   telnet
+        </pre></div>
+    </section>
+    <div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">2</strong><img src="_img\arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Nos indica que está abierto el puerto 23, que corresponde al servicio Telnet.
+        </p>
+        
+        <p><img src="_img\teacher.png" style="height: 20px; width: 20px"><strong style="color: rgb(127, 56, 160); font-size:large"> Breve pausita didáctica </strong><img src="_img\arrow.png" style="height: 10px; width: 10px; opacity: 0.7">
+            Telnet es un protocolo de red TCP/IP para establecer conexiones remotas con otros ordenadores, servidores u otro tipo de dispositivos que lo permitan.
+            Por defecto suele utilizar el puerto 23. Es un protocolo obsoleto y poco seguro. Uno de los principales problemas con Telnet, es que la información viaja sin cifrar (texto plano) conviertiendolo
+            así en un protocolo muy inseguro.
+        </p>
+    </div>
+    <div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">3</strong><img src="_img\arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Nos conectamos a través de telnet. Seguidamente, nos pedirá un usuario. Si ponemos <i>root</i> como usuario nos deja loguearnos sin contraseña.
+        </p>
+        
+    </div>
+    <section id ="cmd">
+        <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>telnet 10.129.53.139</h5></div>
+    
+            <div><pre style="text-align: left; margin-left: 20px; color: bisque">
+Trying 10.129.55.68...
+Connected to 10.129.55.68.
+Escape character is '^]'.
+                
+█  █         ▐▌     ▄█▄ █          ▄▄▄▄
+█▄▄█ ▀▀█ █▀▀ ▐▌▄▀    █  █▀█ █▀█    █▌▄█ ▄▀▀▄ ▀▄▀
+█  █ █▄█ █▄▄ ▐█▀▄    █  █ █ █▄▄    █▌▄█ ▀▄▄▀ █▀█
+                
+                
+Meow login: root
+Welcome to Ubuntu 20.04.2 LTS (GNU/Linux 5.4.0-77-generic x86_64)
+            </pre></div>
+        </section>
+    <div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">4</strong><img src="_img\arrow.png" style="height: 15px; width: 15px; opacity: 0.7"> 
+        Una vez dentro podremos comprobar que estamos logueados como <b>root</b> y buscar el archivo <i>flag.txt</i>. Una vez localizado, utilizamos <i>cat</i> para poder leer la flag.
+    </p>
+            
+    </div>
+    <section id ="cmd">
+        <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Meow# </strong>whoami</h5></div>
+        <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial; color: bisque">root</h5></div>
+        <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Meow# </strong>ls</h5></div>
+        <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial; color: bisque">flag.txt snap</h5></div>
+        <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Meow# </strong>cat flag.txt</h5></div>
+        </section>
+        <div id="p2" style="margin-bottom: 150px">
+
+            <p><strong style="color: rgb(127, 56, 160); font-size:large">OJO! </strong><img src="_img\arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+                Para pwnear esta máquina, HTB te pide contestar unas pocas preguntas como complemento al proceso de obtener la flag.
+            </p>
+                
+        </div>
+    
+    <p><center><a href="./../../">Página Principal</a></center></p>
+
+</body>
+</html>

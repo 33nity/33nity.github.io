@@ -1,0 +1,58 @@
+body {
+    background-image: linear-gradient(black, rgb(60, 60, 60))   
+}
+h1 {
+    color:bisque;
+    font-family: Verdana;
+}
+p {
+    color:bisque;
+    font-family: Verdana;
+    margin-left: 300px;
+    margin-right: 300px;
+}
+aside {
+    text-align: center;
+    margin-top: 100px; 
+    margin-bottom: 50px;
+    margin-left: 300px;
+    margin-right: 300px;
+}
+#boxes {
+    margin-left: 400px;
+    margin-bottom: 100px;
+    margin-right: 400px;
+}
+#final_boxes {
+    margin-left: 400px;
+    margin-bottom: 400px;
+    margin-right: 400px;
+}
+
+#avatar {
+    border-radius: 160px;
+    border: 5px solid rgb(127, 56, 160);
+    width: 200px;
+    height: 200px;
+}
+#box_avatar{
+    float: right;
+    margin-right: 10px;
+    margin-left: 30px;
+    height: 50px;
+    width: 50px;
+    padding-left: 200px;
+}
+td {
+    border-bottom: 2px solid #666;
+}
+th {
+    border-bottom: 2px solid rgba(59, 37, 70, 0.719);
+}
+
+#single_box:hover{
+    background-color: rgba(127, 56, 160, 0.164);
+}
+#link {
+    color: yellowgreen;
+}
