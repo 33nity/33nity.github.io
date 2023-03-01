@@ -24,7 +24,7 @@
         </aside>
     <div id="p2">
 
-        <p><strong style="color: rgb(127, 56, 160); font-size:large">1</strong><img src="_img\arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">1</strong><img src="./_img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
             Empezamos escaneando los puertos abiertos de la máquina, utilizando Nmap y la IP que nos indica HTB.
         </p>
 
@@ -42,11 +42,11 @@ PORT    STATE  SERVICE
     </section>
     <div id="p2">
 
-        <p><strong style="color: rgb(127, 56, 160); font-size:large">2</strong><img src="_img\arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">2</strong><img src="./_img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
             Nos indica que está abierto el puerto 21, que corresponde al servicio FTP (File Transfer Protocol)
         </p>
         
-        <p><img src="_img\teacher.png" style="height: 20px; width: 20px"><strong style="color: rgb(127, 56, 160); font-size:large"> Breve pausita didáctica </strong><img src="_img\arrow.png" style="height: 10px; width: 10px; opacity: 0.7">
+        <p><img src="./_img/teacher.png" style="height: 20px; width: 20px"><strong style="color: rgb(127, 56, 160); font-size:large"> Breve pausita didáctica </strong><img src="_img\arrow.png" style="height: 10px; width: 10px; opacity: 0.7">
             FTP (File Transfer Protocol) es un protocolo de red TCP/IP el cual permite transferir archivos de un dispositivo a otro. Suele utilizar por defecto los puertos 20 o 21. A pesar de ser un protocolo que 
             actualmente se sigue usando en algunos ambientes, tiene el mismo problema que Telnet: la información transportada no está cifrada. Esto se solucionó en 2001 con el nacimiento de SFTP que añade una capa
             de SHH para mejorar su seguridad.
@@ -54,7 +54,7 @@ PORT    STATE  SERVICE
     </div>
     <div id="p2">
 
-        <p><strong style="color: rgb(127, 56, 160); font-size:large">3</strong><img src="_img\arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">3</strong><img src="./_img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
             En este caso, realizamos un escaneo al puerto 21 solamente, intentando recabar más información sobre el objetivo por ejemplo la version del servidor FTP. Para esto volvemos a utilizar <b>nmap </b>otra vez.
         </p>
         
@@ -88,7 +88,7 @@ PORT   STATE SERVICE
         </section>
     <div id="p2">
 
-        <p><strong style="color: rgb(127, 56, 160); font-size:large">4</strong><img src="_img\arrow.png" style="height: 15px; width: 15px; opacity: 0.7"> 
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">4</strong><img src="./_img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7"> 
         Con esto descubrimos que podemos loguearnos en el servidor FTP con el usuario anonymous sin contraseña. Vamos a ello.
     </p>
             
@@ -108,7 +108,7 @@ ftp>
 
         </section>
     <div id="p2" style="margin-bottom: 150px">
-        <p><strong style="color: rgb(127, 56, 160); font-size:large">5</strong><img src="_img\arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">5</strong><img src="./_img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
         Una vez hemos comprobado la ubicación de la flag, con el comango <b>get</b> podremos descargarnos el archivo <i>flag.txt</i>.
         </p>
                 
@@ -134,7 +134,7 @@ ftp> exit
         </section>
 
     <div id="p2" style="margin-bottom: 150px">
-        <p><strong style="color: rgb(127, 56, 160); font-size:large">6</strong><img src="_img\arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">6</strong><img src="./_img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
         Completada la descarga, podremos salir. Después podrás leer la flag accediendo a la carpeta donde se ha descargado el archivo y leyéndola.
         </p>                
         </div>
@@ -142,7 +142,7 @@ ftp> exit
         <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>cat flag.txt</h5></div>
         </section>
         <div id="p2" style="margin-bottom: 150px">
-            <p><strong style="color: rgb(127, 56, 160); font-size:large">OJO !</strong><img src="_img\arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            <p><strong style="color: rgb(127, 56, 160); font-size:large">OJO !</strong><img src="./_img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
             Para pwnear esta máquina, HTB te pide contestar unas pocas preguntas como complemento al proceso de obtener la flag. 
             </p>                
             </div>
