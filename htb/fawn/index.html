@@ -23,13 +23,13 @@
         <p>Clasificación: Muy fácil. </p>
         <hr>
     </aside>
-    <div id="p2">
+    <center><div id="p2">
 
         <p><strong style="color: rgb(127, 56, 160); font-size:large">1</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
             Empezamos escaneando los puertos abiertos de la máquina, utilizando Nmap y la IP que nos indica HTB.
         </p>
 
-    </div>
+    </div></center>
 
     <center><section id ="cmd">
     <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>nmap 10.129.223.177</h5></div>
@@ -41,7 +41,7 @@ PORT    STATE  SERVICE
 21/tcp  open   ftp
         </pre></div>
     </section></center>
-    <div id="p2">
+    <center><div id="p2">
 
         <p><strong style="color: rgb(127, 56, 160); font-size:large">2</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
             Nos indica que está abierto el puerto 21, que corresponde al servicio FTP (File Transfer Protocol)
@@ -52,14 +52,14 @@ PORT    STATE  SERVICE
             actualmente se sigue usando en algunos ambientes, tiene el mismo problema que Telnet: la información transportada no está cifrada. Esto se solucionó en 2001 con el nacimiento de SFTP que añade una capa
             de SHH para mejorar su seguridad.
         </p>
-    </div>
-    <div id="p2">
+    </div></center>
+    <center><div id="p2">
 
         <p><strong style="color: rgb(127, 56, 160); font-size:large">3</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
             En este caso, realizamos un escaneo al puerto 21 solamente, intentando recabar más información sobre el objetivo por ejemplo la version del servidor FTP. Para esto volvemos a utilizar <b>nmap </b>otra vez.
         </p>
         
-    </div>
+    </div></center>
     <center><section id ="cmd">
         <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>nmap -sC -p21 10.129.223.177</h5></div>
     
@@ -87,13 +87,13 @@ PORT   STATE SERVICE
 
             </pre></div>
         </section></center>
-    <div id="p2">
+    <center><div id="p2">
 
         <p><strong style="color: rgb(127, 56, 160); font-size:large">4</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7"> 
         Con esto descubrimos que podemos loguearnos en el servidor FTP con el usuario anonymous sin contraseña. Vamos a ello.
     </p>
             
-    </div>
+    </div></center>
     <center><section id ="cmd">
         <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>ftp anonymous@10.129.223.177 21</h5></div>
         <div><pre style="text-align: left; margin-left: 20px; color: bisque">
@@ -108,12 +108,12 @@ ftp>
                         </pre></div>
 
         </section></center>
-    <div id="p2" style="margin-bottom: 150px">
+    <center><div id="p2" style="margin-bottom: 150px">
         <p><strong style="color: rgb(127, 56, 160); font-size:large">5</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
         Una vez hemos comprobado la ubicación de la flag, con el comango <b>get</b> podremos descargarnos el archivo <i>flag.txt</i>.
         </p>
                 
-        </div>
+        </div></center>
     <center><section id ="cmd">
         <div><pre style="text-align: left; margin-left: 20px; color: bisque">
 ftp> ls
@@ -134,20 +134,20 @@ ftp> exit
             
         </section></center>
 
-    <div id="p2" style="margin-bottom: 150px">
+    <center><div id="p2" style="margin-bottom: 150px">
         <p><strong style="color: rgb(127, 56, 160); font-size:large">6</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
         Completada la descarga, podremos salir. Después podrás leer la flag accediendo a la carpeta donde se ha descargado el archivo y leyéndola.
         </p>                
-        </div>
+        </div></center>
     <center><section id ="cmd">
         <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>cat flag.txt</h5></div>
         </section></center>
         
-        <div id="p2" style="margin-bottom: 150px">
+        <center><div id="p2" style="margin-bottom: 150px">
             <p><strong style="color: rgb(127, 56, 160); font-size:large">OJO !</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
             Para pwnear esta máquina, HTB te pide contestar unas pocas preguntas como complemento al proceso de obtener la flag. 
             </p>                
-            </div>
+            </div></center>
     
     
     <p><center><a href="./../../" style="color: yellowgreen">Página Principal</a></center></p>
