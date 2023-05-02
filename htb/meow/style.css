@@ -26,11 +26,11 @@ aside {
     height: 200px;
 }
 #cmd {
-    width: 100%;
+    width: 30%;
     background-color:rgba(48, 40, 40, 0.658);
     border: 2px solid grey;
-    margin-bottom: 100px;
-    margin-top: 50px;
+    margin-bottom: 5%;
+    margin-top: 5%;
 }
 #p2 {
     text-align: left;
