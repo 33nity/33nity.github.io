@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es-US">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="style.css">
+<title>HTB Dancing WriteUp</title>
+<link rel="icon" type="image/png" sizes="64x64" href="https://avatars.githubusercontent.com/u/124062596?v=4">
+<meta property="og:title" content="HTB Dancing WriteUp" />
+<meta name="description" content="HTB Dancing WriteUp" />
+<meta name="og:description" content="HTB Dancing WriteUp" />
+<meta property="og:site_name" content="HTB Dancing WriteUp" />
+<meta property="og:type" content="website" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <aside>
+        <img 
+            src="https://avatars.githubusercontent.com/u/124062596?v=4"
+            id="box_img"
+            >
+        <h1>Dancing</h1>
+        <p>Clasificación: Muy fácil. </p>
+        <hr>
+    </aside>
+    <center><div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">1</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Empezamos escaneando los puertos abiertos de la máquina, utilizando Nmap, la IP que nos indica HTB y la opción -sV para que nos saque los puertos abiertos y servicios que corresponden a cada uno.
+        </p>
+
+    </div></center>
+
+    <center><section id ="cmd">
+    <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>nmap -sV 10.129.2.178</h5></div>
+
+        <div><pre style="text-align: left; margin-left: 20px; color: bisque">
+Nmap scan report for 10.129.2.178
+
+PORT    STATE SERVICE       VERSION
+135/tcp open  msrpc         Microsoft Windows RPC
+139/tcp open  netbios-ssn   Microsoft Windows netbios-ssn
+445/tcp open  microsoft-ds?
+
+        </pre></div>
+    </section></center>
+    <center><div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">2</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Nos indica que hay tres puertos abiertos; en este caso vamos a centrarnos en el puerto 445, el cual utiliza el protocolo SMB.
+        </p>
+        
+        <p><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/teacher.png" style="height: 20px; width: 20px"><strong style="color: rgb(127, 56, 160); font-size:large"> Breve pausita didáctica </strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 10px; width: 10px; opacity: 0.7">
+            SMB (Server Message Block) es un protocolo que se usa en comunicaciones entre el cliente y el servidor
+            para compartir el acceso a archivos, impresoras, puertos u otros recursos en la misma red. Este protocolo permite a las aplicaciones
+            y a sus usuarios acceder a archivos en servidores remotos como conectar y acceder a otros recursos. Solía utilizar los puertos 137,
+            138 y 139 aunque hoy en día con el uso de TCP/IP es más común que utilice el puerto 445.
+        </p>
+    </div></center>
+
+    <center><div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">3</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Sabiendo un poquito más sobre SMB podemos intentar enumerar los contenidos de este. Para esto utlilizaré <strong>smbclient</strong> una herramienta que permite acceder a los recursos compartidos de SMB.
+            Junto a smbclient utilizamos la opción -L que nos indicará los 'shares' en SMB. Pensaremos en los 'shares' como si fuesen ficheros compartidos, cada uno con una función.
+
+    </div></center>
+
+    <center><section id ="cmd">
+    <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>smbclient -L 10.129.2.178</h5></div>
+
+        <div><pre style="text-align: left; margin-left: 20px; color: bisque">
+Password for [WORKGROUP\root]:
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        ADMIN$          Disk      Remote Admin
+        C$              Disk      Default share
+        IPC$            IPC       Remote IPC
+        WorkShares      Disk      
+
+        </pre></div>
+    </section></center>
+    <center><div id="p2">
+        <p><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/teacher.png" style="height: 20px; width: 20px"><strong style="color: rgb(127, 56, 160); font-size:large"> Breve pausita didáctica </strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 10px; width: 10px; opacity: 0.7"><br>
+            ¿Qué son y que significan cada uno de los 'Shares'?<br>
+            <br>
+            <strong>ADMIN$</strong>: son recursos compartidos ocultos creados por la familia de sistemas operativos de Windows NT
+            que permite a los administradores tener acceso remoto a todos los discos y sus volúmenes en la misma red.<br>
+            <br>
+            <strong>C$</strong>: recurso compartido correspondiente a el volúmen C:/ del disco. Aquí es donde se alberga el sistema operativo.<br>
+            <br>
+            <strong>IPC$</strong>: utilizado para la comunicación entre procesos, no es parte del sistema de ficheros.<br>
+            <br>
+            <strong>WorkShares</strong>: recurso compartido customizable.
+        </p>
+    </div>
+
+    </center>
+
+    <center><div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">4</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            A continuación vamos a intentar conectarnos a cada uno de los ficheros compartidos, exceptuando IPC$ el cual no es parte del sistema de ficheros. Vamos a mirar si hay alguno que no esté bien configurado y nos deje entrar sin poner ninguna contraseña.
+
+    </div></center>
+
+    <center><section id ="cmd">
+    <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>smbclient \\\\10.129.2.178\\ADMIN$</h5></div>
+
+        <div><pre style="text-align: left; margin-left: 20px; color: bisque">
+
+Password for [WORKGROUP\root]:
+tree connect failed: NT_STATUS_ACCESS_DENIED
+
+        </pre></div>
+    </section></center>
+    <center><section id ="cmd">
+    <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>smbclient \\\\10.129.2.178\\C$</h5></div>
+            <div><pre style="text-align: left; margin-left: 20px; color: bisque">
+
+Password for [WORKGROUP\root]:
+tree connect failed: NT_STATUS_ACCESS_DENIED
+
+        </pre></div>
+    </section></center>
+    <center><section id ="cmd">
+    <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>smbclient \\\\10.129.2.178\\WorkShares</h5></div>
+            <div><pre style="text-align: left; margin-left: 20px; color: bisque">
+Password for [WORKGROUP\root]:
+Try "help" to get a list of possible commands.
+smb: \> 
+
+        </pre></div>
+    </section></center>
+    <center><div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">4</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Ha funcionado con el fichero 'WorkShares'. Una vez dentro vamos a listar los contenidos con el comando ls. Nos indica que hay dos ficheros: Amy.J y James.P.
+            Volvemos a utilizar ls para listar el contenido de ambos y al listar James.P encontramos la flag. Para poder descargarla utilizamos el comando get.</p>
+    </div></center>
+    <center><section id ="cmd">
+            <div><pre style="text-align: left; margin-left: 20px; color: bisque">
+smb: \> ls
+  .                                   D        0  Mon Mar 29 04:22:01 2021
+  ..                                  D        0  Mon Mar 29 04:22:01 2021
+  Amy.J                               D        0  Mon Mar 29 05:08:24 2021
+  James.P                             D        0  Thu Jun  3 04:38:03 2021
+smb: \> ls Amy.J/
+  .                                   D        0  Mon Mar 29 05:08:24 2021
+  ..                                  D        0  Mon Mar 29 05:08:24 2021
+  worknotes.txt                       A       94  Fri Mar 26 07:00:37 2021
+smb: \> ls James.P/
+  .                                   D        0  Thu Jun  3 04:38:03 2021
+  ..                                  D        0  Thu Jun  3 04:38:03 2021
+  flag.txt                            A       32  Mon Mar 29 05:26:57 2021
+smb: \> cd James.p
+smb: \James.p\> get flag.txt
+getting file \James.p\flag.txt of size 32 as flag.txt (0.2 KiloBytes/sec) 
+(average 0.2 KiloBytes/sec)
+
+        </pre></div>
+    </section></center>
+    <center><div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">5</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Completada la descarga, podremos salir. Después podrás leer la flag accediendo a la carpeta donde se ha descargado el archivo. </p>
+    </div></center>
+    <center><section id ="cmd">
+        <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>cat flag.txt</h5></div>
+    </section></center>
+        
+        <center><div id="p2" style="margin-bottom: 150px">
+            <p><strong style="color: rgb(127, 56, 160); font-size:large">OJO !</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Para pwnear esta máquina, HTB te pide contestar unas pocas preguntas como complemento al proceso de obtener la flag. 
+            </p>                
+            </div></center>
+    
+    
+    <p><center><a href="./../../" style="color: yellowgreen">Página Principal</a></center></p>
+
+</body>
+</html>
