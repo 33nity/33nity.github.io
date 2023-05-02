@@ -27,8 +27,6 @@ aside {
 }
 #cmd {
     width: 100%;
-    margin-right: 600px;
-    margin-left: 600px;
     background-color:rgba(48, 40, 40, 0.658);
     border: 2px solid grey;
     margin-bottom: 100px;
