@@ -31,7 +31,7 @@
 
     </div>
 
-    <section id ="cmd">
+    <center><section id ="cmd">
     <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>nmap 10.129.223.177</h5></div>
 
         <div><pre style="text-align: left; margin-left: 20px; color: bisque">
@@ -40,7 +40,7 @@ Nmap scan report for 10.129.223.177
 PORT    STATE  SERVICE
 21/tcp  open   ftp
         </pre></div>
-    </section>
+    </section></center>
     <div id="p2">
 
         <p><strong style="color: rgb(127, 56, 160); font-size:large">2</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
@@ -60,7 +60,7 @@ PORT    STATE  SERVICE
         </p>
         
     </div>
-    <section id ="cmd">
+    <center><section id ="cmd">
         <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>nmap -sC -p21 10.129.223.177</h5></div>
     
             <div><pre style="text-align: left; margin-left: 20px; color: bisque">
@@ -86,7 +86,7 @@ PORT   STATE SERVICE
                 
 
             </pre></div>
-        </section>
+        </section></center>
     <div id="p2">
 
         <p><strong style="color: rgb(127, 56, 160); font-size:large">4</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7"> 
@@ -94,7 +94,7 @@ PORT   STATE SERVICE
     </p>
             
     </div>
-    <section id ="cmd">
+    <center><section id ="cmd">
         <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>ftp anonymous@10.129.223.177 21</h5></div>
         <div><pre style="text-align: left; margin-left: 20px; color: bisque">
 Connected to 10.129.223.177.
@@ -107,14 +107,14 @@ Using binary mode to transfer files.
 ftp>             
                         </pre></div>
 
-        </section>
+        </section></center>
     <div id="p2" style="margin-bottom: 150px">
         <p><strong style="color: rgb(127, 56, 160); font-size:large">5</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
         Una vez hemos comprobado la ubicación de la flag, con el comango <b>get</b> podremos descargarnos el archivo <i>flag.txt</i>.
         </p>
                 
         </div>
-    <section id ="cmd">
+    <center><section id ="cmd">
         <div><pre style="text-align: left; margin-left: 20px; color: bisque">
 ftp> ls
 229 Entering Extended Passive Mode (|||61810|)
@@ -132,16 +132,17 @@ ftp> exit
 221 Goodbye.
                                     </pre></div>
             
-        </section>
+        </section></center>
 
     <div id="p2" style="margin-bottom: 150px">
         <p><strong style="color: rgb(127, 56, 160); font-size:large">6</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
         Completada la descarga, podremos salir. Después podrás leer la flag accediendo a la carpeta donde se ha descargado el archivo y leyéndola.
         </p>                
         </div>
-    <section id ="cmd">
+    <center><section id ="cmd">
         <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>cat flag.txt</h5></div>
-        </section>
+        </section></center>
+        
         <div id="p2" style="margin-bottom: 150px">
             <p><strong style="color: rgb(127, 56, 160); font-size:large">OJO !</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
             Para pwnear esta máquina, HTB te pide contestar unas pocas preguntas como complemento al proceso de obtener la flag. 
