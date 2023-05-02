@@ -5,6 +5,9 @@ h1 {
     color:bisque;
     font-family: Verdana;
 }
+#header {
+    text-align: center;
+}
 p {
     color:bisque;
     font-family: Verdana;
