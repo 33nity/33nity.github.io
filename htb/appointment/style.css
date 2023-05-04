@@ -1,0 +1,38 @@
+body {
+    background-image: linear-gradient(black, rgb(60, 60, 60))   
+}
+h1 {
+    color:bisque;
+    font-family: Verdana;
+}
+p {
+    color:bisque;
+    font-family: Verdana;
+}
+h5 {
+    color: bisque;
+}
+aside {
+    text-align: center;
+    margin-top: 100px; 
+    margin-bottom: 50px;
+    margin-left: 300px;
+    margin-right: 300px;
+}
+#box_img {
+    border-radius: 160px;
+    border: 5px solid rgb(127, 56, 160);
+    width: 200px;
+    height: 200px;
+}
+#cmd {
+    width: 50%;
+    background-color:rgba(48, 40, 40, 0.658);
+    border: 2px solid grey;
+    margin-bottom: 5%;
+    margin-top: 5%;
+}
+#p2 {
+    text-align: left;
+    width: 60%;
+}

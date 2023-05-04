@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es-US">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="style.css">
+<title>HTB Appointment WriteUp</title>
+<link rel="icon" type="image/png" sizes="64x64" href="https://avatars.githubusercontent.com/u/124062596?v=4">
+<meta property="og:title" content="HTB Appointment WriteUp" />
+<meta name="description" content="HTB Appointment WriteUp" />
+<meta name="og:description" content="HTB Appointment WriteUp" />
+<meta property="og:site_name" content="HTB Appointment WriteUp" />
+<meta property="og:type" content="website" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <aside>
+        <img 
+            src="https://avatars.githubusercontent.com/u/124062596?v=4"
+            id="box_img"
+            >
+        <h1>Appointment</h1>
+        <p>Clasificación: Muy fácil. </p>
+        <hr>
+    </aside>
+    <center><div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">1</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Empezamos escaneando los puertos abiertos de la máquina, utilizamos Nmap como siempre seguido de la opción -sV.
+        </p>
+
+    </div></center>
+
+    <center><section id ="cmd">
+    <div><h5 style="text-align: left; margin-left: 10px; font-family:Arial"><strong style="color: rgb(127, 56, 160)">~ root@Threenity# </strong>nmap -sV 10.129.155.82</h5></div>
+
+        <div><pre style="text-align: left; margin-left: 20px; color: bisque">
+
+Nmap scan report for 10.129.155.182
+Host is up (0.035s latency).
+Not shown: 999 closed tcp ports (reset)
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.38 ((Debian))
+
+
+        </pre></div>
+    </section></center>
+    <center><div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">2</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Nos indica que hay solo está abierto el puerto 80, con un servicio HTTP, versión Apache 2.4.38.
+        </p>
+        
+        <p><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/teacher.png" style="height: 20px; width: 20px"><strong style="color: rgb(127, 56, 160); font-size:large"> Breve pausita didáctica </strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 10px; width: 10px; opacity: 0.7">
+            Servidor HTTP Apache: Es uno de los servidores web HTTP más populares de código abierto para múltiples plataformas como Microsoft Windows, Unix, Macintosh, ect. Se encarga principalmente de establecer una conexión entre el servidor
+            y los navegadores web. Tiene una estructura basada en módulos por lo que es altamente personalizable.
+        </p>
+    </div></center>
+
+    <center><div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">3</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            En el navegador web, vamos a visitar el http directamente introduciendo la IP de la máquina en la barra URL. Podemos ver que es una página de login, por lo que la primera opción que vamos a intentar es introducir
+            varios nombres de usuario y contraseñas comunes como:
+        </p>
+    </div></center>
+    <center><section id ="cmd">
+        <div><pre style="text-align: left; margin-left: 20px; color: bisque">
+admin:admin 
+root:root 
+guest:guest 
+test:test 
+user:user 
+user:password
+        </pre></div>
+    </section></center>
+    <center><div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">4</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Ninguna funciona. Podríamos probar con fuerza bruta, pero antes de liarnos con eso, vamos intentar sobrepasar el mecanismo de autenticación con una inyección SQL.
+        </p>
+        <p><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/teacher.png" style="height: 20px; width: 20px"><strong style="color: rgb(127, 56, 160); font-size:large"> Breve pausita didáctica </strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 10px; width: 10px; opacity: 0.7">
+            Inyección SQL: Es una forma muy común utilizada para explotar páginas web a partir de código SQL malicioso con el fin de poder manipular la parte
+            del 'backend' de la base de datos para de extraer o manipular la información. Hay múltiples tipos de inyección SQL. 
+            Suele aprovecharse de vulnerabilidades a nivel de validación de entrada de usuario para realizar 
+            operaciones no autorizadas sobre la base de datos.
+        </p>
+    </div></center>
+    <center><div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">5</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+        Para realizar la inyección SQL vamos a introducir en 'Username' un nombre de usuario común como 'admin' seguido de una comilla ' y el símbolo #. El script buscará si coincide el nombre de usuario que hemos
+        escrito con alguno de los que están almacenados en la base de datos pero no buscará una contraseña. Dado que esa parte del código se comenta con el símbolo #, podemos poner cualquier contraseña ya que está 
+        será válida si encuentra un usuario que coincida.
+        </p>
+    </div></center>
+    <center><section id ="cmd">
+            <div><pre style="text-align: left; margin-left: 20px; color: bisque">
+admin'#:123
+        </pre></div>
+    </section></center>
+    <center><div id="p2">
+
+        <p><strong style="color: rgb(127, 56, 160); font-size:large">6</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            En este caso ha funcionado. Una vez pasada la pantalla de log-in, nos felicita y nos muestra la flag.</p>
+    </div></center>
+        
+        <center><div id="p2" style="margin-bottom: 150px">
+            <p><strong style="color: rgb(127, 56, 160); font-size:large">OJO !</strong><img src="https://raw.githubusercontent.com/33nity/33nity.github.io/main/img/arrow.png" style="height: 15px; width: 15px; opacity: 0.7">
+            Para pwnear esta máquina, HTB te pide contestar unas pocas preguntas como complemento al proceso de obtener la flag. 
+            </p>                
+            </div></center>
+    
+    
+    <p><center><a href="./../../" style="color: yellowgreen">Página Principal</a></center></p>
+
+</body>
+</html>
